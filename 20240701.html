@@ -1,294 +1,757 @@
 <!DOCTYPE HTML>
-<html>
-    <head>
+<html lang="zh-CN">
+<head>
     <meta charset="utf-8">
-    <title>Demo by LI Xin</title>
-    </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero Shot Voice Clone (语音克隆) - Demo</title>
+    <!-- 引入Tailwind CSS简化样式开发，保证视觉一致性 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 自定义配置：统一颜色、字体和圆角 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb', // 主色调：柔和蓝，提升专业感
+                        neutral: '#f3f4f6', // 中性色：浅灰，用于背景分隔
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'], // 无衬线字体，清晰易读
+                    },
+                    borderRadius: {
+                        'sm': '0.25rem',
+                        'md': '0.5rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            /* 自定义工具类：表格行悬停效果、音频控件美化 */
+            .table-hover {
+                @apply transition-colors duration-200 hover:bg-neutral/50;
+            }
+            .audio-control {
+                @apply w-full max-w-[200px] rounded-md border border-gray-200 shadow-sm;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <!-- 顶部导航 -->
+        <header class="mb-8">
+            <!-- 返回主页按钮：突出交互性，hover有反馈 -->
+            <a href="home.html" class="inline-block px-4 py-2 bg-primary text-white rounded-md transition-all duration-200 hover:bg-primary/90 hover:shadow-md">
+                返回主页
+            </a>
+            <!-- 标题：层级清晰，视觉突出 -->
+            <h1 class="mt-6 text-[clamp(1.8rem,3vw,2.5rem)] font-bold text-gray-900">
+                Zero Shot Voice Clone（语音克隆）
+            </h1>
+            <!-- 分割线：简化样式，更显精致 -->
+            <hr class="mt-4 border-t-2 border-gray-800 rounded-full">
+        </header>
 
-    <body>
-    <a href="home.html">返回主页</a><br>
-    <!-- <a href="#section_clone">Zero Shot Voice Clone (语音克隆)</a><br> -->
-    <hr style="height: 5px; background-color: #000;">
-
-    <h2><b>Zero Shot Voice Clone (语音克隆)</b><a name="section_clone"></a></h2>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Prompt Text</th>
-          <th>Prompt Audio</th>
-          <th>Target Text</th>
-          <th>Target Audio</th>
-        </tr>
-      </thead>
-
-      <tbody>
-
-      <hr style="height: 1px; background-color: #0f0f0f;">
-
-<tr>
-  <td style="text-align: center;">001</td>
-  <td style="text-align: center;">淮阳可多卖的你弄的是儿童喝的吗</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00189A0014_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">淮南下了好大的雪你现在在昊阳吗</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00189A0014.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">002</td>
-  <td style="text-align: center;">黄盛永远都不会伤害你的你知道吗</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00189A0018_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">淮阳可多卖的你弄的是儿童喝的吗</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00189A0018.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">003</td>
-  <td style="text-align: center;">黄永新问就这就只带认证文件就行了吧</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00189A0042_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">黄盛永远都不会伤害你的你知道吗</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00189A0042.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">004</td>
-  <td style="text-align: center;">换个手机上网突然发现小霞的照片</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00189A0048_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">黄永新问就这就只带认证文件就行了吧</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00189A0048.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">005</td>
-  <td style="text-align: center;">竟有计算机二级我们圈一个人都没</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00196A0023_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">就是帮他们做广告得宣传这个影楼</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00196A0023.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">006</td>
-  <td style="text-align: center;">就好去网吧我还知道在家玩没感觉</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00196A0057_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">竟有计算机二级我们圈一个人都没</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00196A0057.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">007</td>
-  <td style="text-align: center;">我不允许自己这样害怕</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00240A0001_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">不是有的不允许</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00240A0001.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">008</td>
-  <td style="text-align: center;">不要拿给我黄永晴</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00240A0012_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">我不允许自己这样害怕</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00240A0012.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">009</td>
-  <td style="text-align: center;">坏了不能愉快的玩耍了</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00240A0017_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">不要拿给我黄永晴</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00240A0017.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">010</td>
-  <td style="text-align: center;">我永远都不习惯</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00240A0019_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">坏了不能愉快的玩耍了</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00240A0019.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">011</td>
-  <td style="text-align: center;">不想起床我想拥抱你亲亲你</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00267A0003_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">不许笑我我平胸这个小缺点</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00267A0003.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">012</td>
-  <td style="text-align: center;">不想圈在家里她是黑龙江的</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00267A0013_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">不想起床我想拥抱你亲亲你</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00267A0013.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">013</td>
-  <td style="text-align: center;">不要相互赞群你不是女的么</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00267A0017_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">不想圈在家里她是黑龙江的</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00267A0017.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">014</td>
-  <td style="text-align: center;">不要叫二娃家里不给买这些</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00267A0026_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">不要相互赞群你不是女的么</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00267A0026.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">015</td>
-  <td style="text-align: center;">起床又要军训去了</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00293A0020_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">你结婚明年回去就相亲</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00293A0020.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">016</td>
-  <td style="text-align: center;">那天又去吃了鸳鸯锅</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00293A0029_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">起床又要军训去了</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00293A0029.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">017</td>
-  <td style="text-align: center;">没经允许就传了你的照片</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00293A0036_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">那天又去吃了鸳鸯锅</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00293A0036.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">018</td>
-  <td style="text-align: center;">奇葩教师不允许</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00293A0039_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">没经允许就传了你的照片</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/20170001P00293A0039.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">019</td>
-  <td style="text-align: center;">播放吻别</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/38_5658_20170914105902_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">带地址歌曲名演唱者</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/38_5658_20170914105902.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">020</td>
-  <td style="text-align: center;">求助张信哲从出道到现在一共出了多少张专辑</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/38_5658_20170914105919_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">播放吻别</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/38_5658_20170914105919.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">021</td>
-  <td style="text-align: center;">提醒你明天早上十点郊游</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/38_5658_20170914105941_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">求助张信哲从出道到现在一共出了多少张专辑</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/38_5658_20170914105941.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">022</td>
-  <td style="text-align: center;">放一下长寿</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/38_5658_20170914110004_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">提醒你明天早上十点郊游</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/38_5658_20170914110004.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">023</td>
-  <td style="text-align: center;">叫我明天早上去办事</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/5_2115_20170629201056_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">不要歌词的那种不要太长的</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/5_2115_20170629201056.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">024</td>
-  <td style="text-align: center;">操作方法还有练习方法最好有判定标准</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/5_2115_20170629201152_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">叫我明天早上去办事</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/5_2115_20170629201152.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">025</td>
-  <td style="text-align: center;">这么好的天气心情能不好吗</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/5_2115_20170629201212_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">操作方法还有练习方法最好有判定标准</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/5_2115_20170629201212.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">026</td>
-  <td style="text-align: center;">周杰伦新编辑有哪些歌要歌单</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/5_2115_20170629201223_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">这么好的天气心情能不好吗</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/5_2115_20170629201223.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">027</td>
-  <td style="text-align: center;">如何去葫芦岛</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/5_2629_20170701142314_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">上海怎么走</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/5_2629_20170701142314.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">028</td>
-  <td style="text-align: center;">我不想听这个电台</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/5_2629_20170701142415_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">如何去葫芦岛</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/5_2629_20170701142415.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">029</td>
-  <td style="text-align: center;">电脑待机</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/5_3118_20170702140925_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">转到音乐频道</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/5_3118_20170702140925.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">030</td>
-  <td style="text-align: center;">调大电话音量</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/5_3118_20170702141019_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">电脑待机</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/5_3118_20170702141019.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">031</td>
-  <td style="text-align: center;">八卦频道</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/5_3118_20170702141041_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">调大电话音量</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/5_3118_20170702141041.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">032</td>
-  <td style="text-align: center;">来张合影</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/5_3118_20170702141056_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">八卦频道</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/5_3118_20170702141056.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">033</td>
-  <td style="text-align: center;">企业依靠技术挖潜增效他负责全厂产品质量与技术培训成了厂里的大忙人</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/A35_1_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">他仅凭腰部的力量在泳道上下翻腾蛹动蛇行状如海豚一直以一头的优势领先</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/A35_1.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">034</td>
-  <td style="text-align: center;">菜做好了一碗清蒸武昌鱼一碗蕃茄炒鸡蛋一碗榨菜干子炒肉丝</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/A35_2_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">企业依靠技术挖潜增效他负责全厂产品质量与技术培训成了厂里的大忙人</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/A35_2.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">035</td>
-  <td style="text-align: center;">有一家个体制品厂本该用完整的型材生产门窗却用半截材打结凑合</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/A35_3_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">菜做好了一碗清蒸武昌鱼一碗蕃茄炒鸡蛋一碗榨菜干子炒肉丝</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/A35_3.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">036</td>
-  <td style="text-align: center;">另外一带二挂壁式空调器适合我国情况为我厂的精品也要进一步发展与完善</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/B21_258_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">要理顺产权关系除了要理顺政企关系外首先要理顺企业资产所有者与经营者的关系</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/B21_258.wav" type="audio/wav"></audio></td>
-</tr>
-<tr>
-  <td style="text-align: center;">037</td>
-  <td style="text-align: center;">按节约电力计算到二零零零年可减少二氧化硫排放二十万吨二氧化碳排放七百四十万吨</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/B21_264_prompt.wav" type="audio/wav"></audio></td>
-  <td style="text-align: center;">另外一带二挂壁式空调器适合我国情况为我厂的精品也要进一步发展与完善</td>
-  <td style="text-align: center;"><audio controls><source src="20240701/clone_wavs/B21_264.wav" type="audio/wav"></audio></td>
-</tr>
+        <!-- 核心内容：表格 -->
+        <main>
+            <!-- 响应式表格容器：小屏幕可横向滚动 -->
+            <div class="overflow-x-auto rounded-md shadow-md">
+                <table class="w-full border-collapse bg-white">
+                    <!-- 表头：深色背景，突出标题 -->
+                    <thead class="bg-gray-900 text-white">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-sm font-semibold tracking-wider">ID</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold tracking-wider">Prompt Text</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold tracking-wider">Prompt Audio</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold tracking-wider">Target Text</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold tracking-wider">Target Audio</th>
+                        </tr>
+                    </thead>
+                    <!-- 表体：交替行背景，提升可读性；悬停效果增强交互 -->
 
 
-      </tbody>
-    </table>
-    </body>
+<tbody class="divide-y divide-gray-200">
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">001</td>
+    <td class="px-6 py-4 text-sm text-gray-700">淮阳可多卖的你弄的是儿童喝的吗</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00189A0014_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">淮南下了好大的雪你现在在昊阳吗</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00189A0014.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">002</td>
+    <td class="px-6 py-4 text-sm text-gray-700">黄盛永远都不会伤害你的你知道吗</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00189A0018_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">淮阳可多卖的你弄的是儿童喝的吗</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00189A0018.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">003</td>
+    <td class="px-6 py-4 text-sm text-gray-700">黄永新问就这就只带认证文件就行了吧</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00189A0042_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">黄盛永远都不会伤害你的你知道吗</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00189A0042.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">004</td>
+    <td class="px-6 py-4 text-sm text-gray-700">换个手机上网突然发现小霞的照片</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00189A0048_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">黄永新问就这就只带认证文件就行了吧</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00189A0048.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">005</td>
+    <td class="px-6 py-4 text-sm text-gray-700">竟有计算机二级我们圈一个人都没</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00196A0023_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">就是帮他们做广告得宣传这个影楼</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00196A0023.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">006</td>
+    <td class="px-6 py-4 text-sm text-gray-700">就好去网吧我还知道在家玩没感觉</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00196A0057_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">竟有计算机二级我们圈一个人都没</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00196A0057.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">007</td>
+    <td class="px-6 py-4 text-sm text-gray-700">我不允许自己这样害怕</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00240A0001_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">不是有的不允许</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00240A0001.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">008</td>
+    <td class="px-6 py-4 text-sm text-gray-700">不要拿给我黄永晴</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00240A0012_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">我不允许自己这样害怕</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00240A0012.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">009</td>
+    <td class="px-6 py-4 text-sm text-gray-700">坏了不能愉快的玩耍了</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00240A0017_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">不要拿给我黄永晴</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00240A0017.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">010</td>
+    <td class="px-6 py-4 text-sm text-gray-700">我永远都不习惯</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00240A0019_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">坏了不能愉快的玩耍了</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00240A0019.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">011</td>
+    <td class="px-6 py-4 text-sm text-gray-700">不想起床我想拥抱你亲亲你</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00267A0003_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">不许笑我我平胸这个小缺点</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00267A0003.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">012</td>
+    <td class="px-6 py-4 text-sm text-gray-700">不想圈在家里她是黑龙江的</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00267A0013_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">不想起床我想拥抱你亲亲你</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00267A0013.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">013</td>
+    <td class="px-6 py-4 text-sm text-gray-700">不要相互赞群你不是女的么</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00267A0017_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">不想圈在家里她是黑龙江的</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00267A0017.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">014</td>
+    <td class="px-6 py-4 text-sm text-gray-700">不要叫二娃家里不给买这些</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00267A0026_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">不要相互赞群你不是女的么</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00267A0026.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">015</td>
+    <td class="px-6 py-4 text-sm text-gray-700">起床又要军训去了</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00293A0020_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">你结婚明年回去就相亲</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00293A0020.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">016</td>
+    <td class="px-6 py-4 text-sm text-gray-700">那天又去吃了鸳鸯锅</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00293A0029_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">起床又要军训去了</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00293A0029.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">017</td>
+    <td class="px-6 py-4 text-sm text-gray-700">没经允许就传了你的照片</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00293A0036_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">那天又去吃了鸳鸯锅</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00293A0036.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">018</td>
+    <td class="px-6 py-4 text-sm text-gray-700">奇葩教师不允许</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00293A0039_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">没经允许就传了你的照片</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/20170001P00293A0039.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">019</td>
+    <td class="px-6 py-4 text-sm text-gray-700">播放吻别</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/38_5658_20170914105902_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">带地址歌曲名演唱者</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/38_5658_20170914105902.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">020</td>
+    <td class="px-6 py-4 text-sm text-gray-700">求助张信哲从出道到现在一共出了多少张专辑</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/38_5658_20170914105919_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">播放吻别</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/38_5658_20170914105919.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">021</td>
+    <td class="px-6 py-4 text-sm text-gray-700">提醒你明天早上十点郊游</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/38_5658_20170914105941_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">求助张信哲从出道到现在一共出了多少张专辑</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/38_5658_20170914105941.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">022</td>
+    <td class="px-6 py-4 text-sm text-gray-700">放一下长寿</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/38_5658_20170914110004_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">提醒你明天早上十点郊游</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/38_5658_20170914110004.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">023</td>
+    <td class="px-6 py-4 text-sm text-gray-700">叫我明天早上去办事</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/5_2115_20170629201056_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">不要歌词的那种不要太长的</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/5_2115_20170629201056.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">024</td>
+    <td class="px-6 py-4 text-sm text-gray-700">操作方法还有练习方法最好有判定标准</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/5_2115_20170629201152_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">叫我明天早上去办事</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/5_2115_20170629201152.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">025</td>
+    <td class="px-6 py-4 text-sm text-gray-700">这么好的天气心情能不好吗</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/5_2115_20170629201212_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">操作方法还有练习方法最好有判定标准</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/5_2115_20170629201212.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">026</td>
+    <td class="px-6 py-4 text-sm text-gray-700">周杰伦新编辑有哪些歌要歌单</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/5_2115_20170629201223_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">这么好的天气心情能不好吗</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/5_2115_20170629201223.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">027</td>
+    <td class="px-6 py-4 text-sm text-gray-700">如何去葫芦岛</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/5_2629_20170701142314_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">上海怎么走</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/5_2629_20170701142314.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">028</td>
+    <td class="px-6 py-4 text-sm text-gray-700">我不想听这个电台</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/5_2629_20170701142415_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">如何去葫芦岛</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/5_2629_20170701142415.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">029</td>
+    <td class="px-6 py-4 text-sm text-gray-700">电脑待机</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/5_3118_20170702140925_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">转到音乐频道</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/5_3118_20170702140925.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">030</td>
+    <td class="px-6 py-4 text-sm text-gray-700">调大电话音量</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/5_3118_20170702141019_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">电脑待机</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/5_3118_20170702141019.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">031</td>
+    <td class="px-6 py-4 text-sm text-gray-700">八卦频道</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/5_3118_20170702141041_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">调大电话音量</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/5_3118_20170702141041.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">032</td>
+    <td class="px-6 py-4 text-sm text-gray-700">来张合影</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/5_3118_20170702141056_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">八卦频道</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/5_3118_20170702141056.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">033</td>
+    <td class="px-6 py-4 text-sm text-gray-700">企业依靠技术挖潜增效他负责全厂产品质量与技术培训成了厂里的大忙人</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/A35_1_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">他仅凭腰部的力量在泳道上下翻腾蛹动蛇行状如海豚一直以一头的优势领先</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/A35_1.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">034</td>
+    <td class="px-6 py-4 text-sm text-gray-700">菜做好了一碗清蒸武昌鱼一碗蕃茄炒鸡蛋一碗榨菜干子炒肉丝</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/A35_2_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">企业依靠技术挖潜增效他负责全厂产品质量与技术培训成了厂里的大忙人</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/A35_2.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">035</td>
+    <td class="px-6 py-4 text-sm text-gray-700">有一家个体制品厂本该用完整的型材生产门窗却用半截材打结凑合</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/A35_3_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">菜做好了一碗清蒸武昌鱼一碗蕃茄炒鸡蛋一碗榨菜干子炒肉丝</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/A35_3.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">036</td>
+    <td class="px-6 py-4 text-sm text-gray-700">另外一带二挂壁式空调器适合我国情况为我厂的精品也要进一步发展与完善</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/B21_258_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">要理顺产权关系除了要理顺政企关系外首先要理顺企业资产所有者与经营者的关系</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/B21_258.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">037</td>
+    <td class="px-6 py-4 text-sm text-gray-700">按节约电力计算到二零零零年可减少二氧化硫排放二十万吨二氧化碳排放七百四十万吨</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/B21_264_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">另外一带二挂壁式空调器适合我国情况为我厂的精品也要进一步发展与完善</td>
+    <td class="px-6 py-4">
+        <audio controls class="audio-control">
+            <source src="20240701/clone_wavs/B21_264.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+</tbody>
+
+
+
+
+                </table>
+            </div>
+        </main>
+
+        <!-- 页脚：简洁说明，提升专业性 -->
+        <footer class="mt-10 text-center text-sm text-gray-500">
+            <p>© 2024 Demo by LI Xin | 语音克隆技术展示 | 建议使用Chrome/Firefox浏览器获得最佳体验</p>
+        </footer>
+    </div>
+</body>
 </html>
-        

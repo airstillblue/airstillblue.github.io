@@ -1,0 +1,673 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singing Voice Synthesis (歌声合成)</title>
+    <!-- 引入Tailwind CSS简化样式开发，保证视觉一致性 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 自定义配置：统一颜色、字体和圆角 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb', // 主色调：柔和蓝，提升专业感
+                        neutral: '#f3f4f6', // 中性色：浅灰，用于背景分隔
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'], // 无衬线字体，清晰易读
+                    },
+                    borderRadius: {
+                        'sm': '0.25rem',
+                        'md': '0.5rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            /* 自定义工具类：表格行悬停效果、音频控件美化 */
+            .table-hover {
+                @apply transition-colors duration-200 hover:bg-neutral/50;
+            }
+            .audio-control {
+                @apply w-full max-w-[200px] rounded-md border border-gray-200 shadow-sm;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <!-- 顶部导航 -->
+        <header class="mb-8">
+            <!-- 返回主页按钮：突出交互性，hover有反馈 -->
+            <a href="home.html" class="inline-block px-4 py-2 bg-primary text-white rounded-md transition-all duration-200 hover:bg-primary/90 hover:shadow-md">
+                返回主页
+            </a>
+            <!-- 标题：层级清晰，视觉突出 -->
+            <h1 class="mt-6 text-[clamp(1.8rem,3vw,2.5rem)] font-bold text-gray-900">
+                Singing Voice Synthesis（歌声合成）
+            </h1>
+            <!-- 分割线：简化样式，更显精致 -->
+            <hr class="mt-4 border-t-2 border-gray-800 rounded-full">
+        </header>
+
+        <!-- 核心内容：表格 -->
+        <main>
+            <!-- 响应式表格容器：小屏幕可横向滚动 -->
+            <div class="overflow-x-auto rounded-md shadow-md">
+                <table class="w-full border-collapse bg-white">
+                    <!-- 表头：深色背景，突出标题 -->
+                    <thead class="bg-gray-900 text-white">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-sm font-semibold tracking-wider">Song</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold tracking-wider">Prompt Lyric</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold tracking-wider w-56">Prompt Audio</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold tracking-wider">Target Lyric</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold tracking-wider w-56">Target Audio</th>
+                        </tr>
+                    </thead>
+                    <!-- 表体：交替行背景，提升可读性；悬停效果增强交互 -->
+
+
+
+<tbody class="divide-y divide-gray-200">
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">遇见</td>
+    <td class="px-6 py-4 text-sm text-gray-700">总有一天我的谜底会揭开</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/2055002033_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">听见冬天的离开</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/2055002033.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">遇见</td>
+    <td class="px-6 py-4 text-sm text-gray-700">我想我等我期待</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/2055002036_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">未来却不能因此安排</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/2055002036.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">遇见</td>
+    <td class="px-6 py-4 text-sm text-gray-700">未来有一个人在等待</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/2055002039_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">向左向右向前看</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/2055002039.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">遇见</td>
+    <td class="px-6 py-4 text-sm text-gray-700">我遇见谁会有怎样的对白</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/2055002042_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">我等的人他在多远的未来</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/2055002042.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">不为谁而作的歌</td>
+    <td class="px-6 py-4 text-sm text-gray-700">一定有个人她躲过闪过避过瞒过她是谁</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Alto-5#不为谁而作的歌__0000_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">梦为努力浇了水爱在背后往前推</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Alto-5#不为谁而作的歌__0000.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">不为谁而作的歌</td>
+    <td class="px-6 py-4 text-sm text-gray-700">梦为努力浇了水爱在背后往前推</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Alto-5#不为谁而作的歌__0001_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">当我抬起头才发觉我是不是忘了谁</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Alto-5#不为谁而作的歌__0001.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">不为谁而作的歌</td>
+    <td class="px-6 py-4 text-sm text-gray-700">当我抬起头才发觉我是不是忘了谁</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Alto-5#不为谁而作的歌__0002_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">爱到整夜不能睡夜色哪里都深美</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Alto-5#不为谁而作的歌__0002.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">不为谁而作的歌</td>
+    <td class="px-6 py-4 text-sm text-gray-700">爱到整夜不能睡夜色哪里都深美</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Alto-5#不为谁而作的歌__0003_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">一定有个人她躲过闪过避过瞒过她是谁</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Alto-5#不为谁而作的歌__0003.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">遇见你的时候</td>
+    <td class="px-6 py-4 text-sm text-gray-700">就是我可以遇见的最大的惊艳</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Alto-6#遇见你的时候所有星星落在我头上__0000_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">还你</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Alto-6#遇见你的时候所有星星落在我头上__0000.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">遇见你的时候</td>
+    <td class="px-6 py-4 text-sm text-gray-700">神魂颠倒</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Alto-6#遇见你的时候所有星星落在我头上__0002_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">有没有暂停键歌以</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Alto-6#遇见你的时候所有星星落在我头上__0002.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">遇见你的时候</td>
+    <td class="px-6 py-4 text-sm text-gray-700">们还要走很长的时间</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Alto-6#遇见你的时候所有星星落在我头上__0004_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">千万不要把我甩在你</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Alto-6#遇见你的时候所有星星落在我头上__0004.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">遇见你的时候</td>
+    <td class="px-6 py-4 text-sm text-gray-700">身后边</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Alto-6#遇见你的时候所有星星落在我头上__0006_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">一西去环游世界也很难实现但你出现</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Alto-6#遇见你的时候所有星星落在我头上__0006.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">晚风</td>
+    <td class="px-6 py-4 text-sm text-gray-700">你还在身旁</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Bass-1#晚风__0000_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">晚风</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Bass-1#晚风__0000.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">晚风</td>
+    <td class="px-6 py-4 text-sm text-gray-700">吹来多少美梦</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Bass-1#晚风__0002_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">吹来多少轻松</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Bass-1#晚风__0002.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">晚风</td>
+    <td class="px-6 py-4 text-sm text-gray-700">近看水影朦胧</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Bass-1#晚风__0004_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">直到天色微明都消失的无踪影</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Bass-1#晚风__0004.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">晚风</td>
+    <td class="px-6 py-4 text-sm text-gray-700">那欢畅都更欢畅幻想更幻想就像</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Bass-1#晚风__0006_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">你还在身旁</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Bass-1#晚风__0006.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">亲爱的那不是爱情</td>
+    <td class="px-6 py-4 text-sm text-gray-700">日子像旋转木马在脑海里转不停出现那些你对我好的场景</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Chinese#ZH-Alto-1#Mixed_Voice_and_Falsetto#亲爱的那不是爱情#Falsetto_Group#0000_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">教室里那台风琴叮咚叮咚叮咛像你告白的声音动作一直很轻</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Chinese#ZH-Alto-1#Mixed_Voice_and_Falsetto#亲爱的那不是爱情#Falsetto_Group#0000.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">亲爱的那不是爱情</td>
+    <td class="px-6 py-4 text-sm text-gray-700">教室里那台风琴叮咚叮咚叮咛像你告白的声音动作一直很轻</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Chinese#ZH-Alto-1#Mixed_Voice_and_Falsetto#亲爱的那不是爱情#Falsetto_Group#0001_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">微笑看你送完信转身离开的背影</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Chinese#ZH-Alto-1#Mixed_Voice_and_Falsetto#亲爱的那不是爱情#Falsetto_Group#0001.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">亲爱的那不是爱情</td>
+    <td class="px-6 py-4 text-sm text-gray-700">喜欢你字迹清秀的关心</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Chinese#ZH-Alto-1#Mixed_Voice_and_Falsetto#亲爱的那不是爱情#Falsetto_Group#0003_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">那温热的牛奶瓶在我手中握紧有你在的地方我总感觉很窝心</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Chinese#ZH-Alto-1#Mixed_Voice_and_Falsetto#亲爱的那不是爱情#Falsetto_Group#0003.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">亲爱的那不是爱情</td>
+    <td class="px-6 py-4 text-sm text-gray-700">那温热的牛奶瓶在我手中握紧有你在的地方我总感觉很窝心</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Chinese#ZH-Alto-1#Mixed_Voice_and_Falsetto#亲爱的那不是爱情#Falsetto_Group#0004_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">日子像旋转木马在脑海里转不停出现那些你对我好的场景</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Chinese#ZH-Alto-1#Mixed_Voice_and_Falsetto#亲爱的那不是爱情#Falsetto_Group#0004.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">时间都去哪儿了</td>
+    <td class="px-6 py-4 text-sm text-gray-700">转眼就只剩下满脸的皱纹了</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Chinese#ZH-Tenor-1#Breathy#时间都去哪儿了#Breathy_Group#0000_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">时间都去哪了还没好好感受年轻就老了</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Chinese#ZH-Tenor-1#Breathy#时间都去哪儿了#Breathy_Group#0000.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">时间都去哪儿了</td>
+    <td class="px-6 py-4 text-sm text-gray-700">时间都去哪了还没好好感受年轻就老了</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Chinese#ZH-Tenor-1#Breathy#时间都去哪儿了#Breathy_Group#0001_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">生儿养女半辈子满脑子都是孩子哭了笑了</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Chinese#ZH-Tenor-1#Breathy#时间都去哪儿了#Breathy_Group#0001.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">时间都去哪儿了</td>
+    <td class="px-6 py-4 text-sm text-gray-700">时间都去哪了还没好好看看你</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Chinese#ZH-Tenor-1#Breathy#时间都去哪儿了#Breathy_Group#0003_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">眼睛就花了柴米油盐半辈子</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Chinese#ZH-Tenor-1#Breathy#时间都去哪儿了#Breathy_Group#0003.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">时间都去哪儿了</td>
+    <td class="px-6 py-4 text-sm text-gray-700">眼睛就花了柴米油盐半辈子</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Chinese#ZH-Tenor-1#Breathy#时间都去哪儿了#Breathy_Group#0004_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">转眼就只剩下满脸的皱纹了</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Chinese#ZH-Tenor-1#Breathy#时间都去哪儿了#Breathy_Group#0004.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">绣红旗</td>
+    <td class="px-6 py-4 text-sm text-gray-700">针线走</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Soprano-3#绣红旗__0000_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">小儿长针儿密</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Soprano-3#绣红旗__0000.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">绣红旗</td>
+    <td class="px-6 py-4 text-sm text-gray-700">小儿长针儿密</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Soprano-3#绣红旗__0001_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">含着热泪绣红旗绣呀绣红旗</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Soprano-3#绣红旗__0001.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">绣红旗</td>
+    <td class="px-6 py-4 text-sm text-gray-700">含着热泪绣红旗绣呀绣红旗</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Soprano-3#绣红旗__0002_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">热泪随着</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Soprano-3#绣红旗__0002.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">绣红旗</td>
+    <td class="px-6 py-4 text-sm text-gray-700">热泪随着</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Soprano-3#绣红旗__0003_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">针线走</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Soprano-3#绣红旗__0003.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">玫瑰三愿</td>
+    <td class="px-6 py-4 text-sm text-gray-700">好教我留住芳华</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Tenor-7#玫瑰三愿__0000_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">玫瑰花玫瑰花</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Tenor-7#玫瑰三愿__0000.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">玫瑰三愿</td>
+    <td class="px-6 py-4 text-sm text-gray-700">烂开在碧栏杆下</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Tenor-7#玫瑰三愿__0002_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">玫瑰花玫瑰花</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Tenor-7#玫瑰三愿__0002.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">玫瑰三愿</td>
+    <td class="px-6 py-4 text-sm text-gray-700">烂开在碧栏杆下</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Tenor-7#玫瑰三愿__0004_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">我愿那妒我地无情风雨莫吹打</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Tenor-7#玫瑰三愿__0004.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">玫瑰三愿</td>
+    <td class="px-6 py-4 text-sm text-gray-700">我愿那爱我地多情游客莫攀摘</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Tenor-7#玫瑰三愿__0006_prompt.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">我愿嗯那红颜</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20250919/clone_wavs/Tenor-7#玫瑰三愿__0006.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+</tbody>
+
+
+
+
+
+
+
+
+
+                </table>
+            </div>
+        </main>
+
+        <!-- 页脚：简洁说明，提升专业性 -->
+        <footer class="mt-10 text-center text-sm text-gray-500">
+            <p>© Demo by LI Xin </p>
+        </footer>
+    </div>
+</body>
+</html>

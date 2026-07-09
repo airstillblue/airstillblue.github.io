@@ -1,0 +1,276 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vietnamese Voice Cloning & Editing</title>
+    <!-- 引入Tailwind CSS简化样式开发，保证视觉一致性 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 自定义配置：统一颜色、字体和圆角 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb', // 主色调：柔和蓝，提升专业感
+                        neutral: '#f3f4f6', // 中性色：浅灰，用于背景分隔
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'], // 无衬线字体，清晰易读
+                    },
+                    borderRadius: {
+                        'sm': '0.25rem',
+                        'md': '0.5rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            /* 自定义工具类：表格行悬停效果、音频控件美化 */
+            .table-hover {
+                @apply transition-colors duration-200 hover:bg-neutral/50;
+            }
+            .audio-control {
+                @apply w-full max-w-[200px] rounded-md border border-gray-200 shadow-sm;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <!-- 顶部导航 -->
+        <header class="mb-8">
+            <!-- 返回主页按钮：突出交互性，hover有反馈 -->
+            <a href="home.html" class="inline-block px-4 py-2 bg-primary text-white rounded-md transition-all duration-200 hover:bg-primary/90 hover:shadow-md">
+                返回主页
+            </a>
+            <!-- 标题：层级清晰，视觉突出 -->
+            <h1 class="mt-6 text-[clamp(1.8rem,3vw,2.5rem)] font-bold text-gray-900">
+                Vietnamese Voice Cloning & Editing 
+            </h1>
+            <!-- 分割线：简化样式，更显精致 -->
+            <hr class="mt-4 border-t-2 border-gray-800 rounded-full">
+        </header>
+
+        <!-- 核心内容：表格 -->
+        <main>
+            <!-- 响应式表格容器：小屏幕可横向滚动 -->
+            <div class="overflow-x-auto rounded-md shadow-md">
+                <table class="w-full border-collapse bg-white">
+                    <!-- 表头：深色背景，突出标题 -->
+                    <thead class="bg-gray-900 text-white">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-sm font-semibold tracking-wider">ID</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold tracking-wider">Original Text</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold tracking-wider w-56">Original Audio</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold tracking-wider">Target Text</th>
+                            <th class="px-6 py-4 text-left text-sm font-semibold tracking-wider w-56">Edited Audio</th>
+                        </tr>
+                    </thead>
+                    <!-- 表体：交替行背景，提升可读性；悬停效果增强交互 -->
+
+
+
+<tbody class="divide-y divide-gray-200">
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">001</td>
+    <td class="px-6 py-4 text-sm text-gray-700">TRẢI QUA NHỮNG NGÀY <strong style="color: red;">ĐI BỘ LEO</strong> HẾT CHỖ NÀY ĐẾN CHỖ KHÁC</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20260709/edited_wavs/ViEdit00_orig.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">TRẢI QUA NHỮNG NGÀY <strong style="color: red;">VUI CHƠI</strong> HẾT CHỖ NÀY ĐẾN CHỖ KHÁC</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20260709/edited_wavs/ViEdit00_edit.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">002</td>
+    <td class="px-6 py-4 text-sm text-gray-700">NHƯNG MÀ SAU NÀY NGHE NÓI LÀ ÔNG TA <strong style="color: red;">ỦNG HỘ</strong> BÀ TA</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20260709/edited_wavs/ViEdit01_orig.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">NHƯNG MÀ SAU NÀY NGHE NÓI LÀ ÔNG TA <strong style="color: red;">PHẢN ĐỐI</strong> BÀ TA</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20260709/edited_wavs/ViEdit01_edit.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">003</td>
+    <td class="px-6 py-4 text-sm text-gray-700">CÓ <strong style="color: red;">TRÊN TẦNG HAI</strong> CŨNG CÓ HAI PHÒNG Ở VÀ MỘT NHÀ VỆ SINH</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20260709/edited_wavs/ViEdit02_orig.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">CÓ <strong style="color: red;">DƯỚI TẦNG HẦM</strong> CŨNG CÓ HAI PHÒNG Ở VÀ MỘT NHÀ VỆ SINH</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20260709/edited_wavs/ViEdit02_edit.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">004</td>
+    <td class="px-6 py-4 text-sm text-gray-700">TẤT CẢ NHỮNG ĐIỀU NÀY ĐỀU ĐƯỢC NGƯỜI BẠN CỦA NHI <strong style="color: red;">CHỨNG KIẾ</strong>N</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20260709/edited_wavs/ViEdit03_orig.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">TẤT CẢ NHỮNG ĐIỀU NÀY ĐỀU ĐƯỢC NGƯỜI BẠN CỦA NHI <strong style="color: red;">GIẤU KÍ</strong>N</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20260709/edited_wavs/ViEdit03_edit.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">005</td>
+    <td class="px-6 py-4 text-sm text-gray-700">NHƯNG DO <strong style="color: red;">CÓ NHIỀU CHUYỆN</strong> NÊN BÁN NHÀ ĐÓ ĐỂ MUA NƠI KHÁC</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20260709/edited_wavs/ViEdit04_orig.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">NHƯNG DO <strong style="color: red;">LÀM ĂN PHÁT TÀI</strong> NÊN BÁN NHÀ ĐÓ ĐỂ MUA NƠI KHÁC</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20260709/edited_wavs/ViEdit04_edit.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">006</td>
+    <td class="px-6 py-4 text-sm text-gray-700">ÔNG ẤY ĐƯA CHO TÔI C<strong style="color: red;">ÁI ĐỊA CHỈ</strong> TỚI ĐÂY RỒI ĐI LUÔN</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20260709/edited_wavs/ViEdit05_orig.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">ÔNG ẤY ĐƯA CHO TÔI C<strong style="color: red;">HÌA KHÓA NHÀ</strong> TỚI ĐÂY RỒI ĐI LUÔN</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20260709/edited_wavs/ViEdit05_edit.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">007</td>
+    <td class="px-6 py-4 text-sm text-gray-700">CŨNG LÀ ĐỂ CHO <strong style="color: red;">KUMANTHO</strong>NG CÓ MỘT NƠI Ở MỚI ĐẦY ĐỦ HƠN</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20260709/edited_wavs/ViEdit06_orig.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">CŨNG LÀ ĐỂ CHO <strong style="color: red;">THÚ CƯ</strong>NG CÓ MỘT NƠI Ở MỚI ĐẦY ĐỦ HƠN</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20260709/edited_wavs/ViEdit06_edit.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">008</td>
+    <td class="px-6 py-4 text-sm text-gray-700">CŨNG <strong style="color: red;">VỪA MỚI NGỒI THÔ</strong>I NƯỚC CÒN CHƯA UỐNG HẾT MỘT NỬA ĐÂY NÀY</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20260709/edited_wavs/ViEdit07_orig.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">CŨNG <strong style="color: red;">NGỒI LÂU LẮM RỒ</strong>I NƯỚC CÒN CHƯA UỐNG HẾT MỘT NỬA ĐÂY NÀY</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20260709/edited_wavs/ViEdit07_edit.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">009</td>
+    <td class="px-6 py-4 text-sm text-gray-700"><strong style="color: red;">TRƯỚC NÀY CHƯA CÓ MỘT NGƯỜI ĐÀN ÔNG NÀO</strong> TỪ CHỐI TRINH CẢ</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20260709/edited_wavs/ViEdit08_orig.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700"><strong style="color: red;">HÔM NAY CÓ MỘT NGƯỜI ĐÀN ÔNG</strong> TỪ CHỐI TRINH CẢ</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20260709/edited_wavs/ViEdit08_edit.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+<tr class="table-hover">
+    <td class="px-6 py-4 text-sm text-gray-900">010</td>
+    <td class="px-6 py-4 text-sm text-gray-700">CÓ GÌ THEO BÁC SĨ THEO DÕI ĐỂ KIỂM TRA <strong style="color: red;">SÁT SAO</strong> CHO CON</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20260709/edited_wavs/ViEdit09_orig.wav" type="audio/wav">
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+    <td class="px-6 py-4 text-sm text-gray-700">CÓ GÌ THEO BÁC SĨ THEO DÕI ĐỂ KIỂM TRA <strong style="color: red;">QUA LOA</strong> CHO CON</td>
+    <td class="px-6 py-4 w-56">
+        <audio controls class="audio-control">
+            <source src="20260709/edited_wavs/ViEdit09_edit.wav" type="audio/wav"> 
+            您的浏览器不支持音频播放
+        </audio>
+    </td>
+</tr>
+
+</tbody>
+
+
+
+                </table>
+            </div>
+        </main>
+
+        <!-- 页脚：简洁说明，提升专业性 -->
+        <footer class="mt-10 text-center text-sm text-gray-500">
+            <p>© Demo by LI Xin </p>
+        </footer>
+    </div>
+</body>
+</html>
+
+
+
+
+
